@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.jpardogo.android.flabbylistview.lib.FlabbyLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/apk/tools"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content"
+  android:minHeight="100dp"
+  android:orientation="vertical">
+
+  <RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+      android:id="@+id/foodName"
+      android:layout_width="fill_parent"
+      android:layout_height="wrap_content"
+      android:layout_alignParentRight="true"
+      android:layout_alignParentTop="true"
+      android:layout_alignWithParentIfMissing="true"
+      android:gravity="top"
+      android:ellipsize="marquee"
+      android:text="Food name"
+      android:textSize="16sp"/>
+
+    <TextView
+      android:id="@+id/foodDescription"
+      android:layout_below="@id/foodName"
+      android:layout_width="fill_parent"
+      android:layout_height="26dip"
+      android:layout_alignParentBottom="true"
+      android:layout_alignParentRight="true"
+      android:singleLine="false"
+      android:text="Food Description"
+      android:textSize="12sp"/>
+
+  </RelativeLayout>
+
+</com.jpardogo.android.flabbylistview.lib.FlabbyLayout>

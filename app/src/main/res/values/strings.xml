@@ -6,5 +6,7 @@
     <string name="action_settings">Settings</string>
   <string name="cafe_food_items">cafeFoodItems</string>
   <string name="meal_activity">Meal</string>
+  <string name="drawer_close">Menu</string>
+  <string name="drawer_open">Choose meal</string>
 
 </resources>

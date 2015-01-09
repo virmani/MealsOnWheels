@@ -1,12 +1,8 @@
 package com.sugarchallenged.mealsonwheels;
 
-import android.app.ActionBar;
-import android.app.FragmentTransaction;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -23,48 +19,33 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-public class DaytimeMenuActivity extends FragmentActivity implements ActionBar.TabListener {
+public class DaytimeMenuFragment extends Fragment {
 
   CafePagerAdapter pagerAdapter;
   ViewPager mViewPager;
   Map<String, FoodItem[]> cafeItemsMap;
 
-  public void onCreate(Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
-    setContentView(R.layout.daytime_menu);
+  public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                           Bundle savedInstanceState) {
+    View rootView = inflater.inflate(R.layout.daytime_menu, container, false);
+    mViewPager = (ViewPager) rootView.findViewById(R.id.pager);
 
-    Intent intent = getIntent();
-    cafeItemsMap = ParcelingUtils.convertBundleToMap(intent.getExtras());
+    cafeItemsMap = ParcelingUtils.convertBundleToMap(getArguments());
+    pagerAdapter = new CafePagerAdapter(cafeItemsMap, getActivity(), getChildFragmentManager());
 
-    pagerAdapter = new CafePagerAdapter(cafeItemsMap, this, getSupportFragmentManager());
-
-    mViewPager = (ViewPager) findViewById(R.id.pager);
     mViewPager.setAdapter(pagerAdapter);
-  }
-
-    @Override
-  public void onTabSelected(ActionBar.Tab tab, FragmentTransaction ft) {
-
-  }
-
-  @Override
-  public void onTabUnselected(ActionBar.Tab tab, FragmentTransaction ft) {
-
-  }
-
-  @Override
-  public void onTabReselected(ActionBar.Tab tab, FragmentTransaction ft) {
-
+    return rootView;
   }
 
   public static class CafePagerAdapter extends FragmentPagerAdapter {
 
-    private List<String> fragmentTitles = new ArrayList<String>();
-    private List<FoodItem[]> fragmentItems = new ArrayList<FoodItem[]>();
+    private List<String> fragmentTitles = new ArrayList<>();
+    private List<FoodItem[]> fragmentItems = new ArrayList<>();
     private Context context;
 
     public CafePagerAdapter(Map<String, FoodItem[]> cafeItemsMap, Context context, FragmentManager fm) {
       super(fm);
+
       Iterator<Map.Entry<String, FoodItem[]>> entries = cafeItemsMap.entrySet().iterator();
       while(entries.hasNext()) {
         Map.Entry<String, FoodItem[]> entry = entries.next();
@@ -96,12 +77,11 @@ public class DaytimeMenuActivity extends FragmentActivity implements ActionBar.T
   }
 
   public static class CafeMenuFragment extends Fragment {
-    public static final String ARG_SECTION_NUMBER = "section_number";
+    private FoodItem[] foodItems;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-      FoodItem[] foodItems = ParcelingUtils.convertToFoodItems(getArguments().getParcelableArray(
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+      foodItems = ParcelingUtils.convertToFoodItems(getArguments().getParcelableArray(
           getActivity().getString(R.string.cafe_food_items)));
 
       View rootView = inflater.inflate(R.layout.cafe_menu, container, false);

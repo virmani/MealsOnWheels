@@ -3,6 +3,8 @@ package com.sugarchallenged.mealsonwheels.models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.sugarchallenged.mealsonwheels.R;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -48,6 +50,36 @@ public class FoodItem implements Parcelable {
     for (int i = 0; keys.hasNext(); i++) {
       category[i] = corToCategory(jsonCors.getString(keys.next()));
     }
+  }
+
+  public Integer[] getCategoryImages() {
+    Integer[] imageUrls = new Integer[category.length];
+    for (int i = 0; i < category.length; i++) {
+      int url = R.drawable.seafood_icon;
+      switch (category[i]) {
+        case Vegetarian:
+          url = R.drawable.vegetarian_icon;
+          break;
+        case Vegan:
+          url = R.drawable.vegan_icon;
+          break;
+        case FarmToFork:
+          url = R.drawable.farmtofork_icon;
+          break;
+        case SeafoodWatch:
+          url = R.drawable.seafood_icon;
+          break;
+        case GlutenFree:
+          url = R.drawable.glutenfree_icon;
+          break;
+        case Humane:
+          url = R.drawable.humane_icon;
+          break;
+      }
+      imageUrls[i] = url;
+    }
+
+    return imageUrls;
   }
 
   private FoodCategory corToCategory(String cor) {
@@ -106,5 +138,9 @@ public class FoodItem implements Parcelable {
     }
 
     dest.writeStringArray(categories);
+  }
+
+  private static class FoodTypeIcons {
+    public static String SEAFOOD = "http://cdn.mysitemyway.com/etc-mysitemyway/icons/legacy-previews/icons-256/glossy-black-icons-animals/012615-glossy-black-icon-animals-animal-fish13.png";
   }
 }

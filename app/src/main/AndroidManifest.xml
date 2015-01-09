@@ -23,9 +23,6 @@
       android:name=".MenuActivity"
       android:label="@string/app_name">
     </activity>
-
-    <activity android:name=".DaytimeMenuActivity"
-              android:label="@string/meal_activity"/>
   </application>
 
 </manifest>

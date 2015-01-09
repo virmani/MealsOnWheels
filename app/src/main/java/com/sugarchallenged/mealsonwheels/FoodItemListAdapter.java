@@ -11,10 +11,17 @@ import android.widget.TextView;
 import com.jpardogo.android.flabbylistview.lib.FlabbyLayout;
 import com.sugarchallenged.mealsonwheels.models.FoodItem;
 
-import java.util.Random;
+import it.sephiroth.android.library.widget.HListView;
 
 public class FoodItemListAdapter extends ArrayAdapter<FoodItem> {
-  private final Random random;
+  private static int[] COLORS = new int[]{
+      Color.parseColor("#55ACEE"),
+      Color.parseColor("#F58888"),
+      Color.parseColor("#F5F8FA"),
+      Color.parseColor("#F2B50F"),
+      Color.parseColor("#63D290"),
+      Color.parseColor("#DD4B39"),
+  };
 
   private final Context context;
   private final FoodItem[] values;
@@ -23,7 +30,6 @@ public class FoodItemListAdapter extends ArrayAdapter<FoodItem> {
 
   public FoodItemListAdapter(Context context, FoodItem[] values) {
     super(context, ItemLayout, values);
-    this.random = new Random();
     this.context = context;
     this.values = values;
   }
@@ -40,7 +46,9 @@ public class FoodItemListAdapter extends ArrayAdapter<FoodItem> {
       holder = new ViewHolder();
       holder.foodDescriptionView = (TextView) convertView.findViewById(R.id.foodDescription);
       holder.foodNameView = (TextView) convertView.findViewById(R.id.foodName);
-      holder.color = Color.argb(255, random.nextInt(256), random.nextInt(256), random.nextInt(256));
+      holder.foodStationView = (TextView) convertView.findViewById(R.id.foodStation);
+      holder.foodTypeIconListView = (HListView) convertView.findViewById(R.id.foodtype_icon_list);
+
       holder.position = position;
 
       convertView.setTag(holder);
@@ -50,17 +58,19 @@ public class FoodItemListAdapter extends ArrayAdapter<FoodItem> {
 
     holder.foodNameView.setText(values[position].name);
     holder.foodDescriptionView.setText(values[position].description);
-    ((FlabbyLayout) convertView).setFlabbyColor(holder.color);
+    holder.foodStationView.setText(values[position].stationName);
+    holder.foodTypeIconListView.setAdapter(new FoodTypeIconsAdapter(context, values[position].getCategoryImages()));
+    ((FlabbyLayout) convertView).setFlabbyColor(COLORS[position % COLORS.length]);
 
 
     return convertView;
   }
 
-  static class ViewHolder {
+  private static class ViewHolder {
     TextView foodNameView;
     TextView foodDescriptionView;
-    int color;
+    TextView foodStationView;
+    HListView foodTypeIconListView;
     int position;
   }
-
 }

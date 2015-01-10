@@ -11,6 +11,8 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.android.gms.analytics.GoogleAnalytics;
+import com.google.android.gms.analytics.Tracker;
 
 import org.json.JSONObject;
 
@@ -24,10 +26,14 @@ public class SplashScreen extends Activity {
   private final String menuServiceHost = "twunch.herokuapp.com"; // "10.0.2.2:3000";
   private RequestQueue queue;
 
+  private Tracker tracker;
+
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_splash);
+    tracker = ((MealsApplication) getApplication()).getTracker(MealsApplication.TrackerName.APP_TRACKER);
+
     fetchJson(menuUrl(menuServiceHost)).onSuccess(new Continuation<JSONObject, Object>() {
       @Override
       public Object then(Task<JSONObject> task) throws Exception {
@@ -39,6 +45,7 @@ public class SplashScreen extends Activity {
         return null;
       }
     });
+
   }
 
   protected Task<JSONObject> fetchJson(String url) {
@@ -66,4 +73,15 @@ public class SplashScreen extends Activity {
     return "http://" + host + "/";
   }
 
+  @Override
+  protected void onStart() {
+    super.onStart();
+    GoogleAnalytics.getInstance(this).reportActivityStart(this);
+  }
+
+  @Override
+  protected void onStop() {
+    super.onStop();
+    GoogleAnalytics.getInstance(this).reportActivityStop(this);
+  }
 }

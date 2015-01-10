@@ -8,7 +8,6 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import com.jpardogo.android.flabbylistview.lib.FlabbyLayout;
 import com.sugarchallenged.mealsonwheels.models.FoodItem;
 
 import it.sephiroth.android.library.widget.HListView;
@@ -60,7 +59,7 @@ public class FoodItemListAdapter extends ArrayAdapter<FoodItem> {
     holder.foodDescriptionView.setText(values[position].description);
     holder.foodStationView.setText(values[position].stationName);
     holder.foodTypeIconListView.setAdapter(new FoodTypeIconsAdapter(context, values[position].getCategoryImages()));
-    ((FlabbyLayout) convertView).setFlabbyColor(COLORS[position % COLORS.length]);
+    convertView.setBackgroundColor(COLORS[position % COLORS.length]);
 
 
     return convertView;

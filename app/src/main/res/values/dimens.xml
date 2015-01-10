@@ -3,7 +3,10 @@
   <dimen name="activity_horizontal_margin">16dp</dimen>
   <dimen name="activity_vertical_margin">16dp</dimen>
   <dimen name="item_left_padding">6dp</dimen>
-  <dimen name="foodtype_image_width">25dp</dimen>
-  <dimen name="foodtype_image_height">25dp</dimen>
+  <dimen name="foodtype_image_width">45dp</dimen>
+  <dimen name="foodtype_image_height">30dp</dimen>
   <dimen name="icon_padding">2dp</dimen>
+  <dimen name="drawer_item_left_padding">12dp</dimen>
+  <dimen name="drawer_item_top_padding">20dp</dimen>
+  <dimen name="splash_icon_dimen">120dp</dimen>
 </resources>

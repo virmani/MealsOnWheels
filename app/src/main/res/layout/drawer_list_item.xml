@@ -2,11 +2,11 @@
 <TextView
   android:id="@+id/daytime"
   xmlns:android="http://schemas.android.com/apk/res/android"
-  android:layout_width="fill_parent"
-  android:layout_height="26dip"
-  android:layout_alignParentBottom="true"
-  android:layout_alignParentRight="true"
-  android:singleLine="false"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content"
   android:text="Day time"
-  android:textSize="12sp"
-  android:textColor="#ffffffc0"/>
+  android:textAppearance="?android:attr/textAppearanceLargeInverse"
+  android:textColor="#ffffffff"
+  android:paddingLeft="@dimen/drawer_item_left_padding"
+  android:paddingTop="@dimen/drawer_item_top_padding"
+  />

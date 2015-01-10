@@ -17,6 +17,8 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import com.google.android.gms.analytics.GoogleAnalytics;
+import com.google.android.gms.analytics.Tracker;
 import com.sugarchallenged.mealsonwheels.models.DayTime;
 import com.sugarchallenged.mealsonwheels.models.FoodItem;
 
@@ -42,10 +44,13 @@ public class MenuActivity extends ActionBarActivity {
   private Map<String, Map<String, FoodItem[]>> daytimeMenuMap;
   private ArrayList<String> drawerList;
 
+  private Tracker tracker;
+
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_menu);
+    tracker = ((MealsApplication) getApplication()).getTracker(MealsApplication.TrackerName.APP_TRACKER);
 
     Intent intent = getIntent();
     Map<String, Map<String, FoodItem[]>> daytimeMenus =
@@ -81,9 +86,16 @@ public class MenuActivity extends ActionBarActivity {
 
     mDrawerLayout.setDrawerListener(mDrawerToggle);
     mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
-    selectItem(0);
+
+    scrollToCurrentMeal();
   }
 
+  private void scrollToCurrentMeal() {
+    if (drawerList.size() != 0) {
+      int mealToShow = drawerList.indexOf(MealUtils.getMealToShow());
+      selectItem(mealToShow != -1 ? mealToShow : 0);
+    }
+  }
 
   @Override
   public boolean onCreateOptionsMenu(Menu menu) {
@@ -101,15 +113,21 @@ public class MenuActivity extends ActionBarActivity {
       Map<String, FoodItem[]> lunchMenu = getDayTimeMenu(menuJson, DayTime.LUNCH);
       Map<String, FoodItem[]> dinnerMenu = getDayTimeMenu(menuJson, DayTime.DINNER);
 
-      daytimeMenuMap.put(DayTime.BREAKFAST, breakfastMenu);
-      daytimeMenuMap.put(DayTime.LUNCH, lunchMenu);
-      daytimeMenuMap.put(DayTime.DINNER, dinnerMenu);
+      addMealToDaytimeMap(DayTime.BREAKFAST, breakfastMenu);
+      addMealToDaytimeMap(DayTime.LUNCH, lunchMenu);
+      addMealToDaytimeMap(DayTime.DINNER, dinnerMenu);
 
     } catch (JSONException e) {
       showErrorDialog();
     }
 
     return daytimeMenuMap;
+  }
+
+  private void addMealToDaytimeMap(String daytime, Map<String, FoodItem[]> menu) {
+    if (menu != null && menu.size() != 0) {
+      daytimeMenuMap.put(daytime, menu);
+    }
   }
 
   private Map<String, FoodItem[]> getDayTimeMenu(JSONObject menuJson, String daytime) throws JSONException {
@@ -213,5 +231,17 @@ public class MenuActivity extends ActionBarActivity {
   public void onConfigurationChanged(Configuration newConfig) {
     super.onConfigurationChanged(newConfig);
     mDrawerToggle.onConfigurationChanged(newConfig);
+  }
+
+  @Override
+  protected void onStart() {
+    super.onStart();
+    GoogleAnalytics.getInstance(this).reportActivityStart(this);
+  }
+
+  @Override
+  protected void onStop() {
+    super.onStop();
+    GoogleAnalytics.getInstance(this).reportActivityStop(this);
   }
 }

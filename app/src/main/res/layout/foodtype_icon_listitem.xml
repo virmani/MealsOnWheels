@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ImageView xmlns:android="http://schemas.android.com/apk/res/android"
            android:id="@+id/foodtype_icon"
-           android:layout_width="@dimen/foodtype_image_width"
-           android:layout_height="@dimen/foodtype_image_height"
+           android:adjustViewBounds="true"
+           android:maxWidth="@dimen/foodtype_image_width"
+           android:maxHeight="@dimen/foodtype_image_height"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
            android:padding="@dimen/icon_padding"
            android:src="@drawable/seafood_icon"/>

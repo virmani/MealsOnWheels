@@ -9,4 +9,5 @@
   <dimen name="drawer_item_left_padding">12dp</dimen>
   <dimen name="drawer_item_top_padding">20dp</dimen>
   <dimen name="splash_icon_dimen">120dp</dimen>
+  <dimen name="main_frame_padding">20dp</dimen>
 </resources>

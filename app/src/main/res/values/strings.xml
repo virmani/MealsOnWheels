@@ -8,5 +8,6 @@
   <string name="meal_activity">Meal</string>
   <string name="drawer_close">Menu</string>
   <string name="drawer_open">Choose meal</string>
+  <string name="no_food_text"></string>
 
 </resources>

@@ -26,13 +26,11 @@ public class SplashScreen extends Activity {
   private final String menuServiceHost = "twunch.herokuapp.com"; // "10.0.2.2:3000";
   private RequestQueue queue;
 
-  private Tracker tracker;
-
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_splash);
-    tracker = ((MealsApplication) getApplication()).getTracker(MealsApplication.TrackerName.APP_TRACKER);
+    ((MealsApplication) getApplication()).getTracker(MealsApplication.TrackerName.APP_TRACKER);
 
     fetchJson(menuUrl(menuServiceHost)).onSuccess(new Continuation<JSONObject, Object>() {
       @Override

@@ -7,7 +7,16 @@
   <FrameLayout
     android:id="@+id/content_frame"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"/>
+    android:layout_height="match_parent">
+    <TextView
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:padding="@dimen/main_frame_padding"
+      android:textSize="14sp"
+      android:singleLine="false"
+      android:text="@string/no_food_text"/>
+  </FrameLayout>
+
   <!-- The navigation drawer -->
   <ListView
     android:id="@+id/left_drawer"

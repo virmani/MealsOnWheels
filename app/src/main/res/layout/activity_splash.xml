@@ -4,21 +4,34 @@
                 android:layout_height="match_parent"
                 android:background="@color/icon_background" >
 
-  <ImageView
-    android:id="@+id/imgLogo"
-    android:layout_width="@dimen/splash_icon_dimen"
-    android:layout_height="@dimen/splash_icon_dimen"
-    android:layout_centerInParent="true"
-    android:src="@drawable/bonappetweet" />
-
-  <TextView
-    android:layout_width="fill_parent"
+  <RelativeLayout
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="10dp"
-    android:textSize="12dp"
-    android:textColor="#454545"
-    android:gravity="center_horizontal"
-    android:layout_alignParentBottom="true"
-    android:text="www.sugarchallenged.com" />
+    android:layout_centerInParent="true">
 
+    <ImageView
+      android:id="@+id/twitterLogo"
+      android:layout_width="@dimen/splash_icon_dimen"
+      android:layout_height="@dimen/splash_icon_dimen"
+      android:src="@drawable/twitter_icon"
+      android:layout_marginRight="16dip"
+      />
+
+    <ImageView
+      android:id="@+id/lunchLogo"
+      android:layout_width="@dimen/splash_icon_dimen"
+      android:layout_height="@dimen/splash_icon_dimen"
+      android:layout_toRightOf="@id/twitterLogo"
+      android:src="@drawable/lunch_icon" />
+
+    <TextView
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_below="@id/lunchLogo"
+      android:layout_centerHorizontal="true"
+      android:layout_marginTop="10dip"
+      style="@style/Base.TextAppearance.AppCompat.Display1"
+      android:text="Meals on Wheels"/>
+
+  </RelativeLayout>
 </RelativeLayout>

@@ -8,7 +8,9 @@ import com.sugarchallenged.mealsonwheels.R;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 public class FoodItem implements Parcelable {
   public static final Parcelable.Creator CREATOR = new FoodItemCreator();
@@ -53,33 +55,36 @@ public class FoodItem implements Parcelable {
   }
 
   public Integer[] getCategoryImages() {
-    Integer[] imageUrls = new Integer[category.length];
+    List<Integer> imageList = new ArrayList<>();
+
     for (int i = 0; i < category.length; i++) {
-      int url = R.drawable.seafood_icon;
       switch (category[i]) {
         case Vegetarian:
-          url = R.drawable.vegetarian_icon;
+          imageList.add(R.drawable.vegetarian_icon);
           break;
         case Vegan:
-          url = R.drawable.vegan_icon;
+          imageList.add(R.drawable.vegan_icon);
           break;
         case FarmToFork:
-          url = R.drawable.farmtofork_icon;
+          imageList.add(R.drawable.farmtofork_icon);
           break;
         case SeafoodWatch:
-          url = R.drawable.seafood_icon;
+          imageList.add(R.drawable.seafood_icon);
           break;
         case GlutenFree:
-          url = R.drawable.glutenfree_icon;
+          imageList.add(R.drawable.glutenfree_icon);
           break;
         case Humane:
-          url = R.drawable.humane_icon;
+          imageList.add(R.drawable.humane_icon);
+          break;
+        case Organic:
+          imageList.add(R.drawable.usda_organic);
           break;
       }
-      imageUrls[i] = url;
     }
 
-    return imageUrls;
+    Integer[] imageUrls = new Integer[imageList.size()];
+    return imageList.toArray(imageUrls);
   }
 
   private FoodCategory corToCategory(String cor) {
@@ -103,6 +108,11 @@ public class FoodItem implements Parcelable {
       case "humane":
         category = FoodCategory.Humane;
         break;
+      case "organic":
+        category = FoodCategory.Organic;
+        break;
+      default:
+        category = FoodCategory.Other;
     }
 
     return category;

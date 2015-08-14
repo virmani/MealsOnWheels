@@ -18,6 +18,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.SortedMap;
+import java.util.TreeMap;
 
 public class DaytimeMenuFragment extends Fragment {
 
@@ -46,7 +48,7 @@ public class DaytimeMenuFragment extends Fragment {
     public CafePagerAdapter(Map<String, FoodItem[]> cafeItemsMap, Context context, FragmentManager fm) {
       super(fm);
 
-      Iterator<Map.Entry<String, FoodItem[]>> entries = cafeItemsMap.entrySet().iterator();
+      Iterator<Map.Entry<String, FoodItem[]>> entries = new TreeMap<>(cafeItemsMap).entrySet().iterator();
       while(entries.hasNext()) {
         Map.Entry<String, FoodItem[]> entry = entries.next();
         fragmentTitles.add(entry.getKey());

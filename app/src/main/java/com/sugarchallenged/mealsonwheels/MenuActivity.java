@@ -28,6 +28,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -152,6 +155,16 @@ public class MenuActivity extends ActionBarActivity {
     for (int i = 0; i < jsonItems.length(); i++) {
       items[i] = new FoodItem(jsonItems.getJSONObject(i));
     }
+
+    Comparator<FoodItem> stationComparator = new Comparator<FoodItem>() {
+      @Override
+      public int compare(FoodItem lhs, FoodItem rhs) {
+        return lhs.stationName.compareTo(rhs.stationName);
+      }
+    };
+
+    Arrays.sort(items, stationComparator);
+
     return items;
   }
 

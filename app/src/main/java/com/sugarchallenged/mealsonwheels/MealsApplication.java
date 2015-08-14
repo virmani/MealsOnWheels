@@ -3,13 +3,20 @@ package com.sugarchallenged.mealsonwheels;
 import android.app.Application;
 import android.util.Log;
 
+import com.crashlytics.android.Crashlytics;
 import com.google.android.gms.analytics.GoogleAnalytics;
 import com.google.android.gms.analytics.Tracker;
 
+import io.fabric.sdk.android.Fabric;
 import java.util.HashMap;
 import java.util.logging.Logger;
 
 public class MealsApplication extends Application {
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        Fabric.with(this, new Crashlytics());    }
+
   private final String TAG = "MealsApplication";
 
   public enum TrackerName {

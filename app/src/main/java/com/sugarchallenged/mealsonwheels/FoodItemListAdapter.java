@@ -8,7 +8,12 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import com.sugarchallenged.mealsonwheels.models.FoodCategory;
 import com.sugarchallenged.mealsonwheels.models.FoodItem;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import it.sephiroth.android.library.widget.HListView;
 
@@ -59,10 +64,30 @@ public class FoodItemListAdapter extends ArrayAdapter<FoodItem> {
     holder.foodDescriptionView.setText(values[position].description);
     holder.foodStationView.setText(values[position].stationName);
     holder.foodTypeIconListView.setAdapter(new FoodTypeIconsAdapter(context, values[position].getCategoryImages()));
-    convertView.setBackgroundColor(COLORS[position % COLORS.length]);
-
+    convertView.setBackgroundColor(getRowColor(values[position].category));
 
     return convertView;
+  }
+
+  private int getRowColor(FoodCategory[] foodCategories) {
+    int color = FoodCategory.Other.getColor();
+
+    if(foodCategories != null && foodCategories.length > 0) {
+      List<FoodCategory> categories = Arrays.asList(foodCategories);
+      if(categories.contains(FoodCategory.Vegetarian)) {
+        color = FoodCategory.Vegetarian.getColor();
+      } else if(categories.contains(FoodCategory.Vegan)) {
+        color = FoodCategory.Vegan.getColor();
+      } else if(categories.contains(FoodCategory.SeafoodWatch)) {
+        color = FoodCategory.SeafoodWatch.getColor();
+      } else if(categories.contains(FoodCategory.GlutenFree)) {
+        color = FoodCategory.GlutenFree.getColor();
+      } else {
+        color = foodCategories[0].getColor();
+      }
+    }
+
+    return color;
   }
 
   private static class ViewHolder {
